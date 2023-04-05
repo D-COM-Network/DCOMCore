@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.dcom</groupId>
+  <artifactId>DCOMCore</artifactId>
+  <packaging>jar</packaging>
+  <version>0.7.0</version>
+  <name>DCOMCore</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+<maven.compiler.release>11</maven.compiler.release>
+ <maven.compiler.source>11</maven.compiler.source>
+  <maven.compiler.target>11</maven.compiler.target>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+<build>
+  <plugins>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.0</version>
+</plugin>
+</plugins>
+</build>
+  <dependencies>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk15on</artifactId>
+      <version>1.68</version>
+    </dependency>
+    <dependency>
+	     <groupId>org.keycloak</groupId>
+	     <artifactId>keycloak-installed-adapter</artifactId>
+	     <version>12.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.owlike</groupId>
+      <artifactId>genson</artifactId>
+      <version>1.6</version>
+    </dependency>
+  <dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.9.1</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.30</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-text</artifactId>
+    <version>1.9</version>
+</dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>gitlab-maven</id>
+      <url>https://git.cardiff.ac.uk/api/v4/groups/717/-/packages/maven</url>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>gitlab-maven</id>
+      <url>https://git.cardiff.ac.uk/api/v4/projects/4582/packages/maven</url>
+    </repository>
+    <snapshotRepository>
+      <id>gitlab-maven</id>
+      <url>https://git.cardiff.ac.uk/api/v4/projects/4582/packages/maven</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
