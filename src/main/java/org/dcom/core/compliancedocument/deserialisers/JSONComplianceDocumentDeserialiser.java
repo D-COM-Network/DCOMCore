@@ -89,6 +89,11 @@ public class JSONComplianceDocumentDeserialiser {
       ArrayList<Object> inserts =  (ArrayList<Object>)e.get("inserts");
       for (int i=0; i < inserts.size();i++) paragraph.addInsert(parseInsert((HashMap<String,Object>)inserts.get(i),paragraph));
     }
+
+    if (e.containsKey("body'")) {
+      paragraph.setBodyText(e.get("body").toString());
+    }
+    
     LOGGER.trace("Deserialising "+paragraph);
     return paragraph;
   }

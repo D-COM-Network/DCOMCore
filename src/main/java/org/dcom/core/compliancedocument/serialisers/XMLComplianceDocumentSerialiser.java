@@ -113,16 +113,12 @@ public class XMLComplianceDocumentSerialiser {
       Element para = xmlDocument.createElement("p");
       body.appendChild(para);
       if (p.hasMetaData("inserted")) {
-        String bodyContent=p.getMetaDataString("body");
-        p.removeMetaData("body");
-        p.setMetaData("body","<ins>"+bodyContent+"</ins>");
+        p.setBodyText("<ins>"+p.getBodyText()+"</ins>");
       }
       if (p.hasMetaData("deleted")) {
-        String bodyContent=p.getMetaDataString("body");
-        p.removeMetaData("body");
-        p.setMetaData("body","<del>"+bodyContent+"</del>");
+        p.setBodyText("<del>"+p.getBodyText()+"</del>");
       }
-      para.setTextContent(removeUTFCharacters(p.getMetaDataString("body")));
+      para.setTextContent(removeUTFCharacters(p.getBodyText()));
       serialiseInlineMetadata(p,para);
       if (p.getNoRules()>0) {
           for (int i=0; i < p.getNoRules();i++) serialiseRule(p.getRule(i),para,i);
@@ -274,7 +270,7 @@ public class XMLComplianceDocumentSerialiser {
     }
 
     private static String mapMetaDataName(String oName) {
-      if (oName.equals("body") || oName.equals("rules") || oName.equals("caption")) return null;
+      if (oName.equals("rules") || oName.equals("caption")) return null;
       if (oName.equals("imagedata") || oName.equals("alternativetext")) return null;
       if (oName.equals("colspan")) return "colspan";
       if (oName.equals("rowspan")) return "rowspan";

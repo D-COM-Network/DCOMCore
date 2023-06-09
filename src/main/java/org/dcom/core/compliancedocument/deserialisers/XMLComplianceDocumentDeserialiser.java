@@ -191,7 +191,7 @@ public class XMLComplianceDocumentDeserialiser {
     if (!p.hasMetaData("dcterms:identifier")) p.setMetaData("dcterms:identifier",GuidHelper.generateGuid());
   
 
-    p.setMetaData("body",innerXml(e));
+    p.setBodyText(innerXml(e));
   
     //loop through text nodes until we find an element
     Node n=e.getNextSibling();
@@ -203,7 +203,14 @@ public class XMLComplianceDocumentDeserialiser {
           for (int i=0; i < para.getLength();i++) {
               if (para.item(i) instanceof Element && ((Element)para.item(i)).getTagName().equalsIgnoreCase("li")) {
                 Element innerPara=(Element)((Element)para.item(i)).getFirstChild();
-      
+                if (innerPara.getTagName().equals("div")) {
+                  //sometimes we get a missplaced div here
+                  String id=innerPara.getAttribute("id");
+                  String raseType=innerPara.getAttribute("rase-type");
+                  innerPara=(Element)innerPara.getFirstChild();
+                  innerPara.setAttribute("rase-type",raseType);
+                  innerPara.setAttribute("id",id);
+                }
                 p.addParagraph(parseParagraph(innerPara,p));
               }
           }

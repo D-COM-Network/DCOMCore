@@ -57,15 +57,12 @@ public class JSONComplianceDocumentSerialiser {
         LOGGER.trace("Serialising "+p);
         writer.beginObject();
         if (p.hasMetaData("inserted")) {
-          String body=p.getMetaDataString("body");
-          p.removeMetaData("body");
-          p.setMetaData("body","<ins>"+body+"</ins>");
+          p.setBodyText("<ins>"+p.getBodyText()+"</ins>");
         }
         if (p.hasMetaData("deleted")) {
-          String body=p.getMetaDataString("body");
-          p.removeMetaData("body");
-          p.setMetaData("body","<del>"+body+"</del>");
+          p.setBodyText("<del>"+p.getBodyText()+"</del>");
         }
+        writer.writeString("body",p.getBodyText());
         serialiseMetadata(p);
         if (p.getNoParagraphs()> 0) {
           writer.writeName("paragraphs").beginArray();

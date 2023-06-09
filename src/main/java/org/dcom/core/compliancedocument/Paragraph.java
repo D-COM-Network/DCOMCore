@@ -16,6 +16,10 @@ limitations under the License.
 package org.dcom.core.compliancedocument;
 
 import java.util.ArrayList;
+import org.dcom.core.compliancedocument.inline.InlineItem;
+import org.dcom.core.compliancedocument.inline.RASEBox;
+import org.dcom.core.compliancedocument.utils.TextExtractor;
+
 
 /**
 *The programmatic representation and helper functionality for managing Paragraphs in a Compliance Document. A paragraph is made up of Paragraphs and Inserts.
@@ -25,6 +29,7 @@ public class Paragraph extends ComplianceItem{
   private ArrayList<Paragraph> paragraphs;
   private ArrayList<Rule> rules;
   private ArrayList<Insert> inserts;
+  private ArrayList<InlineItem> inlineItems;
 
 
   public Paragraph(ComplianceItem _parent) {
@@ -32,6 +37,7 @@ public class Paragraph extends ComplianceItem{
     paragraphs=new ArrayList<Paragraph>();
     rules=new ArrayList<Rule>();
     inserts=new ArrayList<Insert>();
+    inlineItems=new ArrayList<InlineItem>();
   }
   
   public void removeSubItem(ComplianceItem s) {
@@ -40,6 +46,25 @@ public class Paragraph extends ComplianceItem{
     inserts.remove(s);
   }
 
+  public int getNoInlineItems() {
+    return inlineItems.size();
+  }
+
+  public InlineItem getInlineItem(int i) {
+    return inlineItems.get(i);
+  }
+
+  public String getBodyText() {
+    StringBuffer str = new StringBuffer();
+    for (int i=0; i < inlineItems.size();i++) {
+      str.append(inlineItems.get(i).generateText());
+    }
+    return str.toString();
+  }
+
+  public void setBodyText(String _text) {
+    inlineItems.addAll(TextExtractor.extractStructure(_text));
+  }
 
   public ArrayList<Paragraph> getAllSubParagraphs() {
     ArrayList<Paragraph> paras=new ArrayList<Paragraph>();
