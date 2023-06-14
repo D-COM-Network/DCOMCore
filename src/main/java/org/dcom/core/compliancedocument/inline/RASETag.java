@@ -117,6 +117,10 @@ public class RASETag extends InlineItem {
 		public String toStringShort() {
 			return getTypeString()+"("+getId()+"):"+property;
 		}
+
+		public String getBody() {
+			return body;
+		}
 		
 		public String getTypeString() {
 			String t="";

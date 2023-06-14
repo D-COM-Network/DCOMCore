@@ -20,8 +20,18 @@ package org.dcom.core.compliancedocument;
 */
 public class Cell extends ComplianceItem{
 
+  private Paragraph body;
+
   public Cell(ComplianceItem _parent) {
     super(_parent);
+  }
+
+  public void setBody(Paragraph _p) {
+    body=_p;
+  }
+
+  public Paragraph getBody() {
+    return body;
   }
 
 }

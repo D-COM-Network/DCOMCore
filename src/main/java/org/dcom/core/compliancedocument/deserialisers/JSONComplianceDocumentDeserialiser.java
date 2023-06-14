@@ -139,6 +139,9 @@ public class JSONComplianceDocumentDeserialiser {
               c=new DataCell(row);
             }
             parseMetaData(c,cellData);
+            Paragraph p = new Paragraph(c);
+            p.setBodyText((String)cellData.get("body"));
+            c.setBody(p);
             row.addCell(c);
           }
 

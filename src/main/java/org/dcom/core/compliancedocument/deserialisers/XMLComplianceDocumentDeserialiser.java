@@ -305,7 +305,10 @@ public class XMLComplianceDocumentDeserialiser {
               r.addCell(cell);
               getMetaData("colspan","colspan",cellE,cell);
               getMetaData("rowspan","rowspan",cellE,cell);
-              cell.setMetaData("body",innerXml(cellE));
+              Paragraph p = new Paragraph(cell);
+              p.setBodyText(innerXml(cellE));
+              cell.setBody(p);
+
             }
           }
           nl2=row.getElementsByTagName("td");
@@ -316,7 +319,9 @@ public class XMLComplianceDocumentDeserialiser {
               r.addCell(cell);
               getMetaData("colspan","colspan",cellE,cell);
               getMetaData("rowspan","rowspan",cellE,cell);
-              cell.setMetaData("body",innerXml(cellE));
+              Paragraph p = new Paragraph(cell);
+              p.setBodyText(innerXml(cellE));
+              cell.setBody(p);
             }
           }
 

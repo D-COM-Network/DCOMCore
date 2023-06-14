@@ -103,6 +103,7 @@ public class JSONComplianceDocumentSerialiser {
             serialiseMetadata(r.getCell(z));
             if (r.getCell(z) instanceof TitleCell) writer.writeString("cellType","TitleCell");
             else if (r.getCell(z) instanceof DataCell) writer.writeString("cellType","DataCell");
+            writer.writeString("body",r.getCell(z).getBody().getBodyText());
             writer.endObject();
           }
           writer.endArray();

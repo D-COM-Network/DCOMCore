@@ -165,7 +165,7 @@ public class XMLComplianceDocumentSerialiser {
             else if (r.getCell(z) instanceof DataCell) cell=xmlDocument.createElement("td");
             row.appendChild(cell);
             serialiseInlineMetadata(r.getCell(z),cell);
-            cell.setTextContent(removeUTFCharacters(r.getCell(z).getMetaDataString("body")));
+            cell.setTextContent(removeUTFCharacters(r.getCell(z).getBody().getBodyText()));
           }
 
         }
