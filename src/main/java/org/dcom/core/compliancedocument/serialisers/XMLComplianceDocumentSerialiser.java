@@ -84,6 +84,11 @@ public class XMLComplianceDocumentSerialiser {
             item.setAttribute("rel","stylesheet");
             item.setAttribute("href","https://www.dcom.org.uk/dcom.css");
           
+            item = xmlDocument.createElement("link");
+            head.appendChild(item);
+            item.setAttribute("type","text/css");
+            item.setAttribute("rel","stylesheet");
+            item.setAttribute("href","https://www.dcom.org.uk/rase.css");
             
             serialiseMetadata(document,head);
             
