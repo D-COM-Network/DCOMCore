@@ -123,7 +123,7 @@ public class XMLComplianceDocumentSerialiser {
       if (p.hasMetaData("deleted")) {
         p.setBodyText("<del>"+p.getBodyText()+"</del>");
       }
-      para.setTextContent(removeUTFCharacters(p.getBodyText()));
+      para.setTextContent(removeUTFCharacters(p.getBodyText().replaceAll("\\n","<br/>")));
       serialiseInlineMetadata(p,para);
       if (p.getNoRules()>0) {
           for (int i=0; i < p.getNoRules();i++) serialiseRule(p.getRule(i),para,i);
