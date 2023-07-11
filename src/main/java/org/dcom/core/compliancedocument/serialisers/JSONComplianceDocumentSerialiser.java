@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.dcom.core.compliancedocument.utils.TextExtractor;
 
 /**
 *A helper class that takes an in memory compliance document and produces a JSON string.
@@ -57,10 +58,10 @@ public class JSONComplianceDocumentSerialiser {
         LOGGER.trace("Serialising "+p);
         writer.beginObject();
         if (p.hasMetaData("inserted")) {
-          p.setBodyText("<ins>"+p.getBodyText()+"</ins>");
+          p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
         }
         if (p.hasMetaData("deleted")) {
-          p.setBodyText("<del>"+p.getBodyText()+"</del>");
+          p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
         }
         writer.writeString("body",p.getBodyText());
         serialiseMetadata(p);

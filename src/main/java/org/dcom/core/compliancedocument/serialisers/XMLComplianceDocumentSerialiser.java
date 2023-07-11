@@ -44,6 +44,7 @@ import org.apache.commons.text.translate.UnicodeUnpairedSurrogateRemover;
 import org.apache.commons.lang3.StringUtils;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
+import org.dcom.core.compliancedocument.utils.TextExtractor;
 
 /**
 *A helper class that takes an in memory compliance document and produces a XML string.
@@ -118,10 +119,10 @@ public class XMLComplianceDocumentSerialiser {
       Element para = xmlDocument.createElement("p");
       body.appendChild(para);
       if (p.hasMetaData("inserted")) {
-        p.setBodyText("<ins>"+p.getBodyText()+"</ins>");
+        p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
       }
       if (p.hasMetaData("deleted")) {
-        p.setBodyText("<del>"+p.getBodyText()+"</del>");
+        p.setInlineItems(TextExtractor.extractStructure("<del>"+p.getBodyText()+"</del>"));
       }
       para.setTextContent(removeUTFCharacters(p.getBodyText().replaceAll("\\n","<br/>")));
       serialiseInlineMetadata(p,para);

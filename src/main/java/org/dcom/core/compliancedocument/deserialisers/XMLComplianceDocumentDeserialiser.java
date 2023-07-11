@@ -38,6 +38,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathConstants;
 import java.util.regex.Pattern;
+import org.dcom.core.compliancedocument.utils.TextExtractor;
 
 /**
 *A helper class that takes an XML string and produces an in memory compliance document.
@@ -190,8 +191,7 @@ public class XMLComplianceDocumentDeserialiser {
     //if no identifier than allocate one
     if (!p.hasMetaData("dcterms:identifier")) p.setMetaData("dcterms:identifier",GuidHelper.generateGuid());
   
-
-    p.setBodyText(innerXml(e));
+    p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
   
     //loop through text nodes until we find an element
     Node n=e.getNextSibling();
@@ -306,7 +306,7 @@ public class XMLComplianceDocumentDeserialiser {
               getMetaData("colspan","colspan",cellE,cell);
               getMetaData("rowspan","rowspan",cellE,cell);
               Paragraph p = new Paragraph(cell);
-              p.setBodyText(innerXml(cellE));
+              p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
               cell.setBody(p);
 
             }
@@ -320,7 +320,7 @@ public class XMLComplianceDocumentDeserialiser {
               getMetaData("colspan","colspan",cellE,cell);
               getMetaData("rowspan","rowspan",cellE,cell);
               Paragraph p = new Paragraph(cell);
-              p.setBodyText(innerXml(cellE));
+              p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
               cell.setBody(p);
             }
           }

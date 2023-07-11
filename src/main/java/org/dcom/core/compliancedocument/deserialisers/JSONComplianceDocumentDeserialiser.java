@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.dcom.core.compliancedocument.utils.TextExtractor;
 
 /**
 *A helper class that takes an JSON string and produces an in memory compliance document.
@@ -91,7 +92,7 @@ public class JSONComplianceDocumentDeserialiser {
     }
 
     if (e.containsKey("body'")) {
-      paragraph.setBodyText(e.get("body").toString());
+      paragraph.setInlineItems(TextExtractor.extractStructure(e.get("body").toString()));
     }
     
     LOGGER.trace("Deserialising "+paragraph);
@@ -140,7 +141,7 @@ public class JSONComplianceDocumentDeserialiser {
             }
             parseMetaData(c,cellData);
             Paragraph p = new Paragraph(c);
-            p.setBodyText((String)cellData.get("body"));
+            p.setInlineItems(TextExtractor.extractStructure((String)cellData.get("body")));
             c.setBody(p);
             row.addCell(c);
           }
