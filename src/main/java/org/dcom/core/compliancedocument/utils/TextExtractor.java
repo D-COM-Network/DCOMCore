@@ -64,7 +64,6 @@ public class TextExtractor {
 				try {
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder builder = factory.newDocumentBuilder();
-					System.out.println(bodyText);
 					Document document = builder.parse(new InputSource(new StringReader(bodyText)));
 
 					NodeList children = document.getElementsByTagName("body").item(0).getChildNodes();
