@@ -60,7 +60,7 @@ public class TextExtractor {
 
 		public static List<InlineItem> extractStructure(String body) {
 				List<InlineItem> items = new ArrayList<InlineItem>();
-				String bodyText = "<body>"+StringEscapeUtils.escapeHtml4(body)+"</body>";
+				String bodyText = "<body>"+body+"</body>";
 				try {
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder builder = factory.newDocumentBuilder();
