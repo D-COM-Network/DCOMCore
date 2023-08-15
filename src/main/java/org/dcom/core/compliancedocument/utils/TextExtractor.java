@@ -97,7 +97,7 @@ public class TextExtractor {
 								NodeList children = n.getChildNodes();
 								for (int i=0; i < children.getLength();i++) box.addAllSubItems(crawlStructure(children.item(i)));
 								return items;
-							} else if (element.hasAttribute("data-raseType") && element.hasAttribute("data-raseProperty")) {
+							} else if (element.hasAttribute("data-raseType")) {
 								RASETag tag = produceTag(element);
 								if (tag != null) items.add(tag);
 								return items;
@@ -118,12 +118,12 @@ public class TextExtractor {
 			NodeList children = element.getChildNodes();
 			String type = element.getAttribute("data-raseType");
 			String property = element.getAttribute("data-raseProperty");
-			if (type.equals("") || property.equals("")) {
+			if (type.equals("")) {
 				System.err.println("Found Empty Rase Tag!");
 				return null;
 			}
-			if (type!=null && property!=null ) {
-				RASETag tag = new RASETag(type,property,element.getAttribute("data-raseComparator"),element.getAttribute("data-raseTarget"),element.getAttribute("data-raseUnit"),element.getAttribute("id"),innerXml(element).trim());
+			if (type!=null) {
+				RASETag tag = new RASETag(type,property,element.getAttribute("data-raseComparator"),element.getAttribute("data-raseTarget"),element.getAttribute("data-raseUnit"),element.getAttribute("id"),innerXml(element).trim(),element.getAttribute("data-references"));
 				return tag;
 			}
 			return null;

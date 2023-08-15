@@ -287,6 +287,7 @@ public class XMLComplianceDocumentSerialiser {
       if (oName.equals("numberedstyle")) return "type";
       if (oName.equals("dcterms:identifier")) return "data-identifier";
       if (oName.equals("dcterms:relation")) return "data-relation";
+      if (oName.equals("dcterms:references")) return "data-references";
       if (oName.equals("dcterms:replaces")) return "data-replaces";
       if (oName.equals("dcterms:isReplacedBy")) return "data-isReplacedBy";
       if (oName.equals("dcterms:title")) return "title";

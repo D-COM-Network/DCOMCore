@@ -182,6 +182,7 @@ public class XMLComplianceDocumentDeserialiser {
 
     getMetaData("numbered","data-numbered",e,p);
     getMetaData("dcterms:identifier","data-identifier",e,p);
+    getMetaData("dcterms:references","data-references",e,p);
     getMetaData("dcterms:relation","data-relation",e,p);
     getMetaData("dcterms:replaces","data-replaces",e,p);
     getMetaData("dcterms:isReplacedBy","data-isReplacedBy",e,p);

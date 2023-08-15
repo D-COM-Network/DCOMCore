@@ -36,8 +36,9 @@ public class RASETag extends InlineItem {
 		private String unit;
 		private String documentReference;
 		private String body;
+		private String references;
 	
-		public RASETag(String _type,String _property,String _comparator, String _value, String _unit, String _id,String _body) {
+		public RASETag(String _type,String _property,String _comparator, String _value, String _unit, String _id,String _body,String _references) {
 				super(_id);
 				if (_type.equalsIgnoreCase("requirement")) type=REQUIREMENT;
 				else if (_type.equalsIgnoreCase("selection")) 	 type=SELECTION;
@@ -49,6 +50,7 @@ public class RASETag extends InlineItem {
 				comparator=_comparator;
 				unit=_unit;
 				body=_body;
+				references=_references;
 		}  
 		
 		private String sanitise(String in) {
@@ -121,6 +123,10 @@ public class RASETag extends InlineItem {
 		public String getBody() {
 			return body;
 		}
+
+		public String getReferences() {
+			return references;
+		}
 		
 		public String getTypeString() {
 			String t="";
@@ -132,6 +138,6 @@ public class RASETag extends InlineItem {
 		}
 
 		public String generateText() {
-			return "<span data-raseType='"+getTypeString()+"' data-raseTarget='"+getValue()+"' data-raseUnit='"+getUnit()+"' id='"+getId()+"' data-raseComparator='"+getComparator()+"'>"+body+"</span>";
+			return "<span data-raseType='"+getTypeString()+"' data-raseTarget='"+getValue()+"' data-raseUnit='"+getUnit()+"' id='"+getId()+"' data-raseComparator='"+getComparator()+"' data-references='"+references+"'>"+body+"</span>";
 		}
 }
