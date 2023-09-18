@@ -116,7 +116,7 @@ public class XMLComplianceDocumentSerialiser {
     private static ArrayList<Insert> serialiseParagraph(Paragraph p,Element body) {
       LOGGER.trace("Serialising "+p);
       ArrayList<Insert> inserts=new ArrayList<Insert>();
-      Element para = xmlDocument.createElement("p");
+      Element para = xmlDocument.createElement("div");
       body.appendChild(para);
       if (p.hasMetaData("inserted")) {
         p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
