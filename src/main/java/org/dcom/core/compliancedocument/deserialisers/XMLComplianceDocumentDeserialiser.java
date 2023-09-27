@@ -123,11 +123,11 @@ public class XMLComplianceDocumentDeserialiser {
       for (int i=0; i < children.getLength();i++) {
             if (children.item(i).getNodeType()==Node.ELEMENT_NODE) {
                 Element e1=(Element)children.item(i);
-                if (e1.getTagName().equals("section") || e1.getTagName().equals("div")) {
+                if (e1.getTagName().equals("section") || ( e1.getTagName().equals("div") && e1.hasAttribute("title")) || _parent instanceof ComplianceDocument) {
                   Section newSec = parseSection(e1,s);
                   s.addSection(newSec);
                   if (newSec.getNoParagraphs() > 0) lastPara = newSec.getParagraph(newSec.getNoParagraphs()-1);
-                } else if (e1.getTagName().equals("p") || e1.getTagName().equals("span")) {
+                } else if (e1.getTagName().equals("p") || e1.getTagName().equals("span") || e1.getTagName().equals("div")) {
                   Paragraph p=parseParagraph(e1,s);
                   paragraphs.addAll(p.getAllSubParagraphs());
                   s.addParagraph(p);
@@ -215,7 +215,9 @@ public class XMLComplianceDocumentDeserialiser {
                 p.addParagraph(parseParagraph(innerPara,p));
               }
           }
-      }
+      } else if (e1.getTagName().equalsIgnoreCase("div")) {
+         p.addParagraph(parseParagraph(e1,p));
+      }   
     }
     
     int i=0;
