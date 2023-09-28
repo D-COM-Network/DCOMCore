@@ -196,7 +196,10 @@ public class XMLComplianceDocumentDeserialiser {
     boolean inlinePara = false;
     for (int i=0; i < children.getLength();i++) {
       if (children.item(i)==null) continue;
-      if (children.item(i).getNodeType()!=Node.ELEMENT_NODE || !((Element)children.item(i)).getTagName().equals("div")) inlinePara = true;
+      if (children.item(i).getNodeType()==Node.ELEMENT_NODE) {
+        Element elem = (Element)children.item(i);
+        if ( !elem.getTagName().equals("div") && !elem.getTagName().equals("figure") && !elem.getTagName().equals("table")) inlinePara = true;
+      } else inlinePara = true;
     }
 
     if (inlinePara) {
@@ -208,6 +211,9 @@ public class XMLComplianceDocumentDeserialiser {
           Element e1=(Element)n;
           if (e1.getTagName().equals("div")) {
             p.addParagraph(parseParagraph(e1,p));
+          } else if (e1.getTagName().equals("figure") || e1.getTagName().equals("table") ) {
+            Insert theInsert=parseInsert(e1,p);
+            p.addInsert(theInsert);
           }
         }
       }
@@ -328,7 +334,7 @@ public class XMLComplianceDocumentDeserialiser {
               getMetaData("colspan","colspan",cellE,cell);
               getMetaData("rowspan","rowspan",cellE,cell);
               Paragraph p = new Paragraph(cell);
-              p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
+              p.setInlineItems(TextExtractor.extractStructure(cellE.getChildNodes()));
               cell.setBody(p);
 
             }
@@ -342,7 +348,7 @@ public class XMLComplianceDocumentDeserialiser {
               getMetaData("colspan","colspan",cellE,cell);
               getMetaData("rowspan","rowspan",cellE,cell);
               Paragraph p = new Paragraph(cell);
-              p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
+              p.setInlineItems(TextExtractor.extractStructure(cellE.getChildNodes()));
               cell.setBody(p);
             }
           }

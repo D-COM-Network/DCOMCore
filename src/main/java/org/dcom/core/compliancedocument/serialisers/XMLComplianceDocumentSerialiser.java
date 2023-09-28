@@ -130,32 +130,19 @@ public class XMLComplianceDocumentSerialiser {
           for (int i=0; i < p.getNoRules();i++) serialiseRule(p.getRule(i),para,i);
       }
       if (p.getNoParagraphs()> 0) {
-          boolean hasSubSub = false;
-          for (int i=0; i < p.getNoParagraphs();i++) {
-            if (p.getParagraph(i).getNoParagraphs() > 0) {
-              hasSubSub = true;
-              break;
-            }
-          }
-          if (!hasSubSub) {
             Element list;
             if (p.getParagraph(0).hasMetaData("numbered") && !p.getParagraph(0).getMetaDataString("numbered").equalsIgnoreCase("none")) {
               list = xmlDocument.createElement("ol");
-            } else {
-              list = xmlDocument.createElement("ul");
-            }
-            
-            if (p.getParagraph(0).hasMetaData("numberedstyle")) {
-              String style=p.getParagraph(0).getMetaDataString("numberedstyle");
-              list.setAttribute("type",style);
-            }
-        
-            body.appendChild(list);
-            for (int i=0; i < p.getNoParagraphs();i++) {
-              Element li = xmlDocument.createElement("li");
-              list.appendChild(li);
-              inserts.addAll(serialiseParagraph(p.getParagraph(i),li));
-            }
+              body.appendChild(list);
+              if (p.getParagraph(0).hasMetaData("numberedstyle")) {
+                String style=p.getParagraph(0).getMetaDataString("numberedstyle");
+                list.setAttribute("type",style);
+              }
+              for (int i=0; i < p.getNoParagraphs();i++) {
+                Element li = xmlDocument.createElement("li");
+                list.appendChild(li);
+                inserts.addAll(serialiseParagraph(p.getParagraph(i),li));
+              }
           } else {
              for (int i=0; i < p.getNoParagraphs();i++) {
               inserts.addAll(serialiseParagraph(p.getParagraph(i),para));
@@ -185,6 +172,7 @@ public class XMLComplianceDocumentSerialiser {
             else if (r.getCell(z) instanceof DataCell) cell=xmlDocument.createElement("td");
             row.appendChild(cell);
             serialiseInlineMetadata(r.getCell(z),cell);
+            System.out.println(r.getCell(z).getBody().getBodyText());
             cell.setTextContent(removeUTFCharacters(r.getCell(z).getBody().getBodyText()));
           }
 
