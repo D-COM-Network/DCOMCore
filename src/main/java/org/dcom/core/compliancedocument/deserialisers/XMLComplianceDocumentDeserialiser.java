@@ -123,7 +123,7 @@ public class XMLComplianceDocumentDeserialiser {
       for (int i=0; i < children.getLength();i++) {
             if (children.item(i).getNodeType()==Node.ELEMENT_NODE) {
                 Element e1=(Element)children.item(i);
-                if (e1.getTagName().equals("section") || ( e1.getTagName().equals("div") && e1.hasAttribute("title")) || _parent instanceof ComplianceDocument) {
+                if (e1.getTagName().equals("section") || ( e1.getTagName().equals("div") && e1.hasAttribute("title"))) {
                   Section newSec = parseSection(e1,s);
                   s.addSection(newSec);
                   if (newSec.getNoParagraphs() > 0) lastPara = newSec.getParagraph(newSec.getNoParagraphs()-1);
@@ -190,11 +190,32 @@ public class XMLComplianceDocumentDeserialiser {
     getMetaData("raseType","data-raseType",e,p);
     getMetaData("raseId","id",e,p);
     //if no identifier than allocate one
-    if (!p.hasMetaData("dcterms:identifier")) p.setMetaData("dcterms:identifier",GuidHelper.generateGuid());
   
-    p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
-  
-    //loop through text nodes until we find an element
+    //if we have nodes other than DIVs below us - it is a paragraph with inline items
+    NodeList children = e.getChildNodes();
+    boolean inlinePara = false;
+    for (int i=0; i < children.getLength();i++) {
+      if (children.item(i)==null) continue;
+      if (children.item(i).getNodeType()!=Node.ELEMENT_NODE || !((Element)children.item(i)).getTagName().equals("div")) inlinePara = true;
+    }
+
+    if (inlinePara) {
+      p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
+    } else {
+      for (int i=0; i < children.getLength();i++) {
+        Node n = children.item(i);
+        if (n!=null && n.getNodeType()==Node.ELEMENT_NODE) {
+          Element e1=(Element)n;
+          if (e1.getTagName().equals("div")) {
+            p.addParagraph(parseParagraph(e1,p));
+          }
+        }
+      }
+    }
+
+
+
+    //check if we have sub paragraphs as LIST items
     Node n=e.getNextSibling();
 
     if (n!=null && n.getNodeType()==Node.ELEMENT_NODE) {
@@ -215,9 +236,7 @@ public class XMLComplianceDocumentDeserialiser {
                 p.addParagraph(parseParagraph(innerPara,p));
               }
           }
-      } else if (e1.getTagName().equalsIgnoreCase("div")) {
-         p.addParagraph(parseParagraph(e1,p));
-      }   
+      }
     }
     
     int i=0;

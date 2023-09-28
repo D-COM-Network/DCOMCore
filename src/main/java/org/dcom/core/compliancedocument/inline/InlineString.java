@@ -40,4 +40,7 @@ public class InlineString extends InlineItem {
 			return body;
 		}
 		
+		public String toString() {
+			return body;
+		}
 }
