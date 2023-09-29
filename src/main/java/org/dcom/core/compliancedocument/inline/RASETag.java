@@ -138,6 +138,6 @@ public class RASETag extends InlineItem {
 		}
 
 		public String generateText() {
-			return "<span data-raseType='"+getTypeString()+"' data-raseTarget='"+getValue()+"' data-raseUnit='"+getUnit()+"' id='"+getId()+"' data-raseComparator='"+getComparator()+"' data-references='"+references+"'>"+body+"</span>";
+			return "<span data-raseType=\""+getTypeString()+"\" data-raseTarget=\""+getValue()+"\" data-raseUnit=\""+getUnit()+"\" id=\""+getId()+"\" data-raseComparator=\""+getComparator()+"\" data-references=\""+references+"\">"+body+"</span>";
 		}
 }
