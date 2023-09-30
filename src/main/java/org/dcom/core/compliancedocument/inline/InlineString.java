@@ -37,7 +37,7 @@ public class InlineString extends InlineItem {
 		}
 		
 		public String generateText() {
-			return body;
+			return body+" ";
 		}
 		
 		public String toString() {
