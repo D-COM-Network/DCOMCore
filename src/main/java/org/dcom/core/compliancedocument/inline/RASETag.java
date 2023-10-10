@@ -75,7 +75,6 @@ public class RASETag extends InlineItem {
 		
 		public String getComparator() {
 			if (comparator.equals("==")) return "==";
-			if (comparator.equals("")) return "==";
 			if (comparator==null) return "==";
 			if (comparator.equals("=")) return "==";
 			comparator=comparator.replace("+amp;","&");
@@ -84,6 +83,7 @@ public class RASETag extends InlineItem {
 			if (comparator.equals("&gt;") || comparator.equals(">")) return ">";
 			if (comparator.equals("&ge;") || comparator.equals("&gt;=") || comparator.equals(">=")) return ">=";
 			if (comparator.equals("&gt;&lt;")) return "==";
+			if (comparator.equals("")) return "";
 			if (!comparator.equals("includes") && !comparator.equals("excludes")) System.err.println("[Error]! Comparator["+getId()+"]:"+comparator);
 			return comparator;
 		} 
@@ -102,7 +102,7 @@ public class RASETag extends InlineItem {
 		}
 		
 		public String getValue() {
-				if (value==null || value.equals("")) return "true";
+				if (value==null) return "true";
 				else return value.toLowerCase();
 		}
 		
@@ -125,6 +125,7 @@ public class RASETag extends InlineItem {
 		}
 
 		public String getReferences() {
+			if (references==null) return "";
 			return references;
 		}
 		
@@ -138,6 +139,13 @@ public class RASETag extends InlineItem {
 		}
 
 		public String generateText() {
-			return "<span data-raseType=\""+getTypeString()+"\" data-raseTarget=\""+getValue()+"\" data-raseUnit=\""+getUnit()+"\" id=\""+getId()+"\" data-raseComparator=\""+getComparator()+"\" data-references=\""+references+"\">"+body+"</span>";
+			String ret = "<span data-raseType=\""+getTypeString()+"\" data-raseProperty=\""+getProperty()+"\"";
+			if (!getValue().equals("")) ret+=" data-raseTarget=\""+getValue()+"\"";
+			if (!getUnit().equals("")) ret+=" data-raseUnit=\""+getUnit()+"\"";
+			if (!getId().equals("")) ret+=" id=\""+getId()+"\"";
+			if (!getComparator().equals("")) ret+=" data-raseComparator=\""+getComparator()+"\"";
+			if (!getReferences().equals("")) ret+=" data-references=\""+getReferences()+"\"";
+			ret+=">"+body+"</span>";
+			return ret;
 		}
 }
