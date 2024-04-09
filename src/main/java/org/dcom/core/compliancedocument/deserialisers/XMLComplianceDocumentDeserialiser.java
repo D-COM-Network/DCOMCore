@@ -201,7 +201,6 @@ public class XMLComplianceDocumentDeserialiser {
         if ( !elem.getTagName().equals("div") && !elem.getTagName().equals("figure") && !elem.getTagName().equals("table")) inlinePara = true;
       } else inlinePara = true;
     }
-
     if (inlinePara) {
       p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
     } else {

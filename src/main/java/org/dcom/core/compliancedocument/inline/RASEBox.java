@@ -31,6 +31,7 @@ public class RASEBox extends InlineItem {
 		public static int APPLICATION_SECTION =2;
 		public static int SELECTION_SECTION =3;
 		public static int EXCEPTION_SECTION =4;
+		public static int BLANK_SECTION =4;
 	
 		private int type;
 		private ArrayList<InlineItem> subItems;
@@ -42,6 +43,7 @@ public class RASEBox extends InlineItem {
 				else if (_type.equalsIgnoreCase("SelectionSection")) 	 type=SELECTION_SECTION;
 				else if (_type.equalsIgnoreCase("ApplicationSection")) type=APPLICATION_SECTION;
 				else if (_type.equalsIgnoreCase("ExceptionSection")) type=EXCEPTION_SECTION;
+				else type = BLANK_SECTION;
 				subItems = new ArrayList<InlineItem>();
 		}
 

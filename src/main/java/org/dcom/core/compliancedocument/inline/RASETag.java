@@ -75,7 +75,7 @@ public class RASETag extends InlineItem {
 		
 		public String getComparator() {
 			if (comparator.equals("==")) return "==";
-			if (comparator==null) return "==";
+			if (comparator==null || comparator.equals("")) return "==";
 			if (comparator.equals("=")) return "==";
 			comparator=comparator.replace("+amp;","&");
 			if (comparator.equals("&le;") || comparator.equals("&lt;=") || comparator.equals("<=")) return "<=";
@@ -102,7 +102,7 @@ public class RASETag extends InlineItem {
 		}
 		
 		public String getValue() {
-				if (value==null) return "true";
+				if (value==null || value.equals("")) return "true";
 				else return value.toLowerCase();
 		}
 		

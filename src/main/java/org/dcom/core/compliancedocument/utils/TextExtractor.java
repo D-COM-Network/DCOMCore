@@ -103,6 +103,14 @@ public class TextExtractor {
 								return items;
 							}
 						}
+				} else {
+					NodeList children = n.getChildNodes();
+					for (int i=0; i < children.getLength();i++) {
+						RASEBox box = new RASEBox("",element.getAttribute("id"));	
+						box.addAllSubItems(crawlStructure(children.item(i)));
+						items.add(box);
+					}
+					return items;
 				}
 			}
 
