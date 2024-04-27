@@ -35,12 +35,27 @@ import org.dcom.core.compliancedocument.inline.InlineString;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.apache.commons.text.StringEscapeUtils;
+import org.dcom.core.compliancedocument.*;
+import java.util.List;
 
 /**
 * This class contains the extractor to extract inline items from paragraphs
 *
 */
 public class TextExtractor {
+
+		
+		public static List<Element> extractInserts(NodeList children) {
+			List<Element> inserts = new ArrayList<Element>();
+			for (int i=0; i < children.getLength();i++) {
+				Node n = children.item(i);
+				if (n.getNodeType()==Node.ELEMENT_NODE) {
+					inserts.addAll(extractInserts(n.getChildNodes()));
+					if (((Element)n).getTagName().equals("figure") || ((Element)n).getTagName().equals("table")) inserts.add((Element)n);
+				}
+			}	
+			return inserts;
+		}
 
 		public static List<InlineItem> extractStructure(NodeList children) {
 				List<InlineItem> items = new ArrayList<InlineItem>();

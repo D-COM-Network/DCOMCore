@@ -27,6 +27,7 @@ import org.xml.sax.InputSource;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Base64;
@@ -203,6 +204,8 @@ public class XMLComplianceDocumentDeserialiser {
     }
     if (inlinePara) {
       p.setInlineItems(TextExtractor.extractStructure(e.getChildNodes()));
+      List<Element> extractedInserts = TextExtractor.extractInserts(e.getChildNodes());
+      for (Element i: extractedInserts) p.addInsert(parseInsert(i,p));
     } else {
       for (int i=0; i < children.getLength();i++) {
         Node n = children.item(i);
