@@ -31,7 +31,7 @@ public class RASEBox extends InlineItem {
 		public static int APPLICATION_SECTION =2;
 		public static int SELECTION_SECTION =3;
 		public static int EXCEPTION_SECTION =4;
-		public static int BLANK_SECTION =4;
+		public static int BLANK_SECTION =5;
 	
 		private int type;
 		private ArrayList<InlineItem> subItems;
