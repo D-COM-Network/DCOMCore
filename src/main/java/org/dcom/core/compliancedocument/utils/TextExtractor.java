@@ -103,8 +103,8 @@ public class TextExtractor {
 			List<InlineItem> items = new ArrayList<InlineItem>();
 			if ( n.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element)n;
-				if ((element.getTagName().equalsIgnoreCase("span") || element.getTagName().equalsIgnoreCase("div")) && element.hasAttribute("data-raseType")) {
-						String type = element.getAttribute("data-raseType");
+				if ((element.getTagName().equalsIgnoreCase("span") || element.getTagName().equalsIgnoreCase("div")) && ( element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype"))) {
+						String type = element.hasAttribute("data-raseType") ? element.getAttribute("data-raseType") : element.getAttribute("data-rasetype");
 						if (type!=null) {
 							if (type.equals("RequirementSection") || type.equals("SelectionSection") || type.equals("ApplicationSection") || type.equals("ExceptionSection")) {
 								RASEBox box = new RASEBox(type,element.getAttribute("id"));
@@ -112,7 +112,7 @@ public class TextExtractor {
 								NodeList children = n.getChildNodes();
 								for (int i=0; i < children.getLength();i++) box.addAllSubItems(crawlStructure(children.item(i)));
 								return items;
-							} else if (element.hasAttribute("data-raseType")) {
+							} else if (element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype")) {
 								RASETag tag = produceTag(element);
 								if (tag != null) items.add(tag);
 								return items;
@@ -139,14 +139,14 @@ public class TextExtractor {
 		private static RASETag produceTag(Element element) {
 			//check there are no sub elements here
 			NodeList children = element.getChildNodes();
-			String type = element.getAttribute("data-raseType");
-			String property = element.getAttribute("data-raseProperty");
+			String type = element.hasAttribute("data-raseType") ? element.getAttribute("data-raseType") : element.getAttribute("data-rasetype");
+			String property = element.hasAttribute("data-raseProperty") ? element.getAttribute("data-raseProperty") : element.getAttribute("data-raseproperty");
 			if (type.equals("")) {
 				System.err.println("Found Empty Rase Tag!");
 				return null;
 			}
 			if (type!=null) {
-				RASETag tag = new RASETag(type,property,element.getAttribute("data-raseComparator"),element.getAttribute("data-raseTarget"),element.getAttribute("data-raseUnit"),element.getAttribute("id"),innerXml(element).trim(),element.getAttribute("data-references"));
+				RASETag tag = new RASETag(type,property,element.hasAttribute("data-raseComparator") ? element.getAttribute("data-raseComparator") : element.getAttribute("data-rasecomparator"),element.hasAttribute("data-raseTarget") ? element.getAttribute("data-raseTarget") : element.getAttribute("data-rasetarget"),element.hasAttribute("data-raseUnit") ? element.getAttribute("data-raseUnit") : element.getAttribute("data-raseunit"),element.getAttribute("id"),innerXml(element).trim(),element.getAttribute("data-references"));
 				return tag;
 			}
 			return null;

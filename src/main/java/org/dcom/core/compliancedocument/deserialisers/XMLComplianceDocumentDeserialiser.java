@@ -388,7 +388,7 @@ public class XMLComplianceDocumentDeserialiser {
         data=e.getAttribute(n).toString();
         p.setMetaData(title,data);
       }
-    }
+    } else if (!n.toLowerCase().equals(n)) getMetaData(title,n.toLowerCase(),e,p);
   }
 
   private static String innerXml(Node node) {
