@@ -140,11 +140,11 @@ public class RASETag extends InlineItem {
 
 		public String generateText(boolean supressBlankRASEElements) {
 			String ret = "<span data-raseType=\""+getTypeString()+"\" data-raseProperty=\""+getProperty()+"\"";
-			if (!getValue().equals("")) ret+=" data-raseTarget=\""+getValue()+"\"";
-			if (!getUnit().equals("")) ret+=" data-raseUnit=\""+getUnit()+"\"";
-			if (!getId().equals("")) ret+=" data-identifier=\""+getId()+"\"";
-			if (!getComparator().equals("")) ret+=" data-raseComparator=\""+getComparator()+"\"";
-			if (!getReferences().equals("")) ret+=" data-references=\""+getReferences()+"\"";
+			if (!value.equals("") && value != null) ret+=" data-raseTarget=\""+getValue()+"\"";
+			if (!unit.equals("") && unit != null) ret+=" data-raseUnit=\""+getUnit()+"\"";
+			if (!getId().equals("") && getId() != null) ret+=" data-identifier=\""+getId()+"\"";
+			if (!comparator.equals("") && comparator != null) ret+=" data-raseComparator=\""+getComparator()+"\"";
+			if (!references.equals("") && references != null) ret+=" data-references=\""+getReferences()+"\"";
 			ret+=">"+body+"</span>";
 			return ret;
 		}

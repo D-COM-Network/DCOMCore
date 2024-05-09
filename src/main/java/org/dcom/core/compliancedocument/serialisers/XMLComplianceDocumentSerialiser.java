@@ -278,7 +278,7 @@ public class XMLComplianceDocumentSerialiser {
           if (newMDName!=null) item.setAttribute(newMDName,str.toString());
         }else {
           String newMDName=mapMetaDataName(mDName);
-          if (newMDName!=null && !newMDName.equals("type")) item.setAttribute(newMDName,i.getMetaDataString(mDName));
+          if (newMDName!=null && !newMDName.equals("type") && !i.getMetaDataString(mDName).equals("") ) item.setAttribute(newMDName,i.getMetaDataString(mDName));
         }
       }
     }
