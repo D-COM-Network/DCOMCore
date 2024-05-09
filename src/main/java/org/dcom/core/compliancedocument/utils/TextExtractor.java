@@ -66,8 +66,8 @@ public class TextExtractor {
 				for (int i=0; i < items.size();i++) {
 					InlineItem item = items.get(i);
 					if (item instanceof InlineString && newItems.size() > 0 && newItems.get(newItems.size()-1) instanceof InlineString) {
-							((InlineString)newItems.get(newItems.size()-1)).append(item.generateText());
-					} else if (item instanceof InlineString && item.generateText().strip().equals("") ) continue;
+							((InlineString)newItems.get(newItems.size()-1)).append(item.generateText(false));
+					} else if (item instanceof InlineString && item.generateText(false).strip().equals("") ) continue;
 					else  newItems.add(item);
 				}
 				return newItems;
@@ -92,8 +92,8 @@ public class TextExtractor {
 				for (int i=0; i < items.size();i++) {
 					InlineItem item = items.get(i);
 					if (item instanceof InlineString && newItems.size() > 0 && newItems.get(newItems.size()-1) instanceof InlineString) {
-							((InlineString)newItems.get(newItems.size()-1)).append(item.generateText());
-					} else if (item instanceof InlineString && item.generateText().strip().equals("") ) continue;
+							((InlineString)newItems.get(newItems.size()-1)).append(item.generateText(false));
+					} else if (item instanceof InlineString && item.generateText(false).strip().equals("") ) continue;
 					else  newItems.add(item);
 				}
 				return newItems;

@@ -53,12 +53,18 @@ public class XMLComplianceDocumentSerialiser {
 
     private static Document xmlDocument;
     private static final Logger LOGGER = LoggerFactory.getLogger( XMLComplianceDocumentSerialiser.class );
+    private static boolean supressBlankRASEElements;
 
     private XMLComplianceDocumentSerialiser() {
       
     }
     
     public static String serialise(ComplianceDocument document) {
+      return serialise(document,false);
+    }
+    
+    public static String serialise(ComplianceDocument document, boolean _supressBlankRASEElements) {
+        supressBlankRASEElements=_supressBlankRASEElements;
         StringWriter writer = new StringWriter();
         writer.write("<!DOCTYPE html>");
         try {
@@ -119,12 +125,12 @@ public class XMLComplianceDocumentSerialiser {
       Element para = xmlDocument.createElement("div");
       body.appendChild(para);
       if (p.hasMetaData("inserted")) {
-        p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
+        p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText(supressBlankRASEElements)+"</ins>"));
       }
       if (p.hasMetaData("deleted")) {
-        p.setInlineItems(TextExtractor.extractStructure("<del>"+p.getBodyText()+"</del>"));
+        p.setInlineItems(TextExtractor.extractStructure("<del>"+p.getBodyText(supressBlankRASEElements)+"</del>"));
       }
-      para.setTextContent(removeUTFCharacters(p.getBodyText().replaceAll("\\n","<br/>")));
+      para.setTextContent(removeUTFCharacters(p.getBodyText(supressBlankRASEElements).replaceAll("\\n","<br/>")));
       serialiseInlineMetadata(p,para);
       if (p.getNoRules()>0) {
           for (int i=0; i < p.getNoRules();i++) serialiseRule(p.getRule(i),para,i);
@@ -172,8 +178,8 @@ public class XMLComplianceDocumentSerialiser {
             else if (r.getCell(z) instanceof DataCell) cell=xmlDocument.createElement("td");
             row.appendChild(cell);
             serialiseInlineMetadata(r.getCell(z),cell);
-            System.out.println(r.getCell(z).getBody().getBodyText());
-            cell.setTextContent(removeUTFCharacters(r.getCell(z).getBody().getBodyText()));
+            System.out.println(r.getCell(z).getBody().getBodyText(supressBlankRASEElements));
+            cell.setTextContent(removeUTFCharacters(r.getCell(z).getBody().getBodyText(supressBlankRASEElements)));
           }
 
         }

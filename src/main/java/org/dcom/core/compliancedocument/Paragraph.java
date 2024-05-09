@@ -53,10 +53,10 @@ public class Paragraph extends ComplianceItem{
     return inlineItems.get(i);
   }
 
-  public String getBodyText() {
+  public String getBodyText(boolean supressBlankRASEElements) {
     StringBuffer str = new StringBuffer();
     for (int i=0; i < inlineItems.size();i++) {
-      str.append(inlineItems.get(i).generateText());
+      str.append(inlineItems.get(i).generateText(supressBlankRASEElements));
     }
     return str.toString();
   }

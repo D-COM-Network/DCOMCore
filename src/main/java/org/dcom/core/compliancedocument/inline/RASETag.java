@@ -138,11 +138,11 @@ public class RASETag extends InlineItem {
 			return t;
 		}
 
-		public String generateText() {
+		public String generateText(boolean supressBlankRASEElements) {
 			String ret = "<span data-raseType=\""+getTypeString()+"\" data-raseProperty=\""+getProperty()+"\"";
 			if (!getValue().equals("")) ret+=" data-raseTarget=\""+getValue()+"\"";
 			if (!getUnit().equals("")) ret+=" data-raseUnit=\""+getUnit()+"\"";
-			if (!getId().equals("")) ret+=" id=\""+getId()+"\"";
+			if (!getId().equals("")) ret+=" data-identifier=\""+getId()+"\"";
 			if (!getComparator().equals("")) ret+=" data-raseComparator=\""+getComparator()+"\"";
 			if (!getReferences().equals("")) ret+=" data-references=\""+getReferences()+"\"";
 			ret+=">"+body+"</span>";

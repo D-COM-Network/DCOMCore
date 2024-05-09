@@ -93,11 +93,11 @@ public class RASEBox extends InlineItem {
 		}
 
 		
-		public String generateText() {
+		public String generateText(boolean supressBlankRASEElements) {
 			StringBuffer str= new StringBuffer();
 			str.append("<span id=\""+getId()+"\" data-raseType=\""+getTypeString()+"\">");
 			for (int i=0; i < subItems.size();i++) {
-				str.append(subItems.get(i).generateText());
+				str.append(subItems.get(i).generateText(supressBlankRASEElements));
 			}
 			str.append("</span>");
 			return str.toString();

@@ -36,7 +36,7 @@ public class InlineString extends InlineItem {
 			body=body+s;
 		}
 		
-		public String generateText() {
+		public String generateText(boolean supressBlankRASEElements) {
 			return body+" ";
 		}
 		

@@ -45,6 +45,6 @@ public abstract class InlineItem {
 			return documentReference;
 		}
 
-		public abstract String generateText();
+		public abstract String generateText(boolean supressBlankRASEElements);
 		
 }

@@ -58,12 +58,12 @@ public class JSONComplianceDocumentSerialiser {
         LOGGER.trace("Serialising "+p);
         writer.beginObject();
         if (p.hasMetaData("inserted")) {
-          p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
+          p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText(false)+"</ins>"));
         }
         if (p.hasMetaData("deleted")) {
-          p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText()+"</ins>"));
+          p.setInlineItems(TextExtractor.extractStructure("<ins>"+p.getBodyText(false)+"</ins>"));
         }
-        writer.writeString("body",p.getBodyText());
+        writer.writeString("body",p.getBodyText(false));
         serialiseMetadata(p);
         if (p.getNoParagraphs()> 0) {
           writer.writeName("paragraphs").beginArray();
@@ -104,7 +104,7 @@ public class JSONComplianceDocumentSerialiser {
             serialiseMetadata(r.getCell(z));
             if (r.getCell(z) instanceof TitleCell) writer.writeString("cellType","TitleCell");
             else if (r.getCell(z) instanceof DataCell) writer.writeString("cellType","DataCell");
-            writer.writeString("body",r.getCell(z).getBody().getBodyText());
+            writer.writeString("body",r.getCell(z).getBody().getBodyText(false));
             writer.endObject();
           }
           writer.endArray();
