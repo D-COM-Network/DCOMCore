@@ -29,6 +29,10 @@ public abstract class InlineItem {
 		private String documentReference;
 		
 		public InlineItem(String _id) {
+			if (_id.contains(".")) {
+            	String[] idSplit = _id.split("\\.");
+                _id = idSplit[idSplit.length-1];
+             }
 			id=_id;
 		}
 		
