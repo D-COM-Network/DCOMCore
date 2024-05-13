@@ -142,7 +142,7 @@ public class RASETag extends InlineItem {
 			String ret = "<span data-raseType=\""+getTypeString()+"\" data-raseProperty=\""+getProperty().replace("&","&amp;").replace("<","&lt;")+"\"";
 			if (!value.equals("") && value != null) ret+=" data-raseTarget=\""+getValue()+"\"";
 			if (!unit.equals("") && unit != null) ret+=" data-raseUnit=\""+getUnit()+"\"";
-			if (!getId().equals("") && getId() != null) ret+=" data-identifier=\""+getId()+"\"";
+			if (!getId().equals("") && getId() != null) ret+=" id=\""+getId()+"\"";
 			if (!comparator.equals("") && comparator != null) ret+=" data-raseComparator=\""+getComparator()+"\"";
 			if (!references.equals("") && references != null) ret+=" data-references=\""+getReferences()+"\"";
 			ret+=">"+body+"</span>";

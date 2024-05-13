@@ -106,7 +106,7 @@ public class XMLComplianceDocumentDeserialiser {
       getMetaData("numbered","data-numbered",e,s);
       getMetaData("numberedstyle","type",e,s);
       getMetaData("dcterms:title","title",e,s);
-      getMetaData("dcterms:identifier","data-identifier",e,s);
+      getMetaData("dcterms:identifier","id",e,s);
       getMetaData("dcterms:relation","data-relation",e,s);
       getMetaData("dcterms:replaces","data-replaces",e,s);
       getMetaData("dcterms:isReplacedBy","data-isReplacedBy",e,s);
@@ -182,7 +182,7 @@ public class XMLComplianceDocumentDeserialiser {
     Paragraph p=new Paragraph(_parent);
 
     getMetaData("numbered","data-numbered",e,p);
-    getMetaData("dcterms:identifier","data-identifier",e,p);
+    getMetaData("dcterms:identifier","id",e,p);
     getMetaData("dcterms:references","data-references",e,p);
     getMetaData("dcterms:relation","data-relation",e,p);
     getMetaData("dcterms:replaces","data-replaces",e,p);
@@ -261,7 +261,7 @@ public class XMLComplianceDocumentDeserialiser {
 
       if (e.getTagName().equals("figure")) {
           Figure f=new Figure(_parent);
-          getMetaData("dcterms:identifier","data-identifier",e,f);
+          getMetaData("dcterms:identifier","id",e,f);
           NodeList nl=e.getElementsByTagName("figcaption");
           if (nl.getLength()>0) {
             String caption=innerXml(nl.item(0));
@@ -298,7 +298,7 @@ public class XMLComplianceDocumentDeserialiser {
           String caption="";
           if (nl.getLength()>0) caption=innerXml(nl.item(0));
           t.setMetaData("caption",caption);
-          getMetaData("dcterms:identifier","data-identifier",e,t);
+          getMetaData("dcterms:identifier","id",e,t);
           nl=e.getElementsByTagName("thead");
           if (nl.getLength()>0) {
             Element tg=(Element)nl.item(0);
