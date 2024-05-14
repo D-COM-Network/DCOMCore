@@ -103,7 +103,6 @@ public class TextExtractor {
 			if ( n.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element)n;
 				if ((element.getTagName().equalsIgnoreCase("span") || element.getTagName().equalsIgnoreCase("div")) && ( element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype"))) {
-						System.out.println("IN");
 						String type = element.hasAttribute("data-raseType") ? element.getAttribute("data-raseType") : element.getAttribute("data-rasetype");
 						if (type!=null) {
 							if (type.equals("RequirementSection") || type.equals("SelectionSection") || type.equals("ApplicationSection") || type.equals("ExceptionSection")) {
