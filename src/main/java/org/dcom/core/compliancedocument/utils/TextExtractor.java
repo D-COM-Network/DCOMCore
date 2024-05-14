@@ -57,9 +57,9 @@ public class TextExtractor {
 			return inserts;
 		}
 
-		public static List<InlineItem> extractStructure(NodeList children) {
+		public static List<InlineItem> extractStructure( NodeList children) {
 				List<InlineItem> items = new ArrayList<InlineItem>();
-				for (int i=0; i < children.getLength();i++) items.addAll(crawlStructure(children.item(i)));
+				for (int i=0; i < children.getLength();i++) items.add(crawlStructure(children.item(i)));
 				
 				//join any duplicate text items
 				List<InlineItem> newItems = new ArrayList<InlineItem>();
@@ -70,7 +70,7 @@ public class TextExtractor {
 					} else if (item instanceof InlineString && item.generateText(false).strip().equals("") ) continue;
 					else  newItems.add(item);
 				}
-				return newItems;
+				return items;
 		}
 
 		public static List<InlineItem> extractStructure(String body) {
@@ -80,9 +80,9 @@ public class TextExtractor {
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder builder = factory.newDocumentBuilder();
 					Document document = builder.parse(new InputSource(new StringReader(bodyText)));
-
+					
 					NodeList children = document.getElementsByTagName("body").item(0).getChildNodes();
-					for (int i=0; i < children.getLength();i++) items.addAll(crawlStructure(children.item(i)));
+					for (int i=0; i < children.getLength();i++) items.add(crawlStructure(children.item(i)));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -99,41 +99,33 @@ public class TextExtractor {
 				return newItems;
 		}
 
-		private static List<InlineItem> crawlStructure(Node n) {
-			List<InlineItem> items = new ArrayList<InlineItem>();
+		private static InlineItem crawlStructure(Node n) {
 			if ( n.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element)n;
 				if ((element.getTagName().equalsIgnoreCase("span") || element.getTagName().equalsIgnoreCase("div")) && ( element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype"))) {
+						System.out.println("IN");
 						String type = element.hasAttribute("data-raseType") ? element.getAttribute("data-raseType") : element.getAttribute("data-rasetype");
 						if (type!=null) {
 							if (type.equals("RequirementSection") || type.equals("SelectionSection") || type.equals("ApplicationSection") || type.equals("ExceptionSection")) {
 								RASEBox box = new RASEBox(type,element.getAttribute("id"));
-								items.add(box);
 								NodeList children = n.getChildNodes();
-								for (int i=0; i < children.getLength();i++) box.addAllSubItems(crawlStructure(children.item(i)));
-								return items;
+								for (int i=0; i < children.getLength();i++) box.addSubItem(crawlStructure(children.item(i)));
+								return box;
 							} else if (element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype")) {
-								RASETag tag = produceTag(element);
-								if (tag != null) items.add(tag);
-								return items;
+								return produceTag(element);
 							}
 						}
 				} else {
+					RASEBox box = new RASEBox("",element.getAttribute("id"));	
 					NodeList children = n.getChildNodes();
-					for (int i=0; i < children.getLength();i++) {
-						RASEBox box = new RASEBox("",element.getAttribute("id"));	
-						box.addAllSubItems(crawlStructure(children.item(i)));
-						items.add(box);
-					}
-					return items;
+					for (int i=0; i < children.getLength();i++) box.addSubItem(crawlStructure(children.item(i)));
+					return box;
 				}
 			}
-
 			DOMImplementationLS lsImpl = (DOMImplementationLS)n.getOwnerDocument().getImplementation().getFeature("LS", "3.0");
 			LSSerializer lsSerializer = lsImpl.createLSSerializer();
 			lsSerializer.getDomConfig().setParameter("xml-declaration", false);
-			items.add(new InlineString("",lsSerializer.writeToString(n).trim()));	
-			return items;
+			return new InlineString("",lsSerializer.writeToString(n).trim());
 		}
 
 		private static RASETag produceTag(Element element) {
