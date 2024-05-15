@@ -92,6 +92,13 @@ public class XMLComplianceDocumentDeserialiser {
             complianceDocument.addSection(parseSection(s,complianceDocument));
           }
       }
+      sections=body.getElementsByTagName("div");
+      for (int i=0; i < sections.getLength();i++) {
+          Element s=(Element)sections.item(i);
+          if (s.getParentNode().isSameNode(body)) {
+            complianceDocument.addSection(parseSection(s,complianceDocument));
+          }
+      }
       LOGGER.trace("Deserialising "+complianceDocument);
       return complianceDocument;
     } catch (Exception e) {
