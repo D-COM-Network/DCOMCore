@@ -18,6 +18,7 @@ package org.dcom.core.compliancedocument;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.List;
 import org.dcom.core.compliancedocument.utils.GuidHelper;
 
 /**
@@ -88,6 +89,10 @@ public class ComplianceItem {
 
   public ArrayList<String> getMetaDataList(String item) {
     return (ArrayList<String>) metaData.get(item);
+  }
+
+  public List<ComplianceItem> getSubItems() {
+    return subItems;
   }
 
   public ComplianceItem getSubItem(int i) {

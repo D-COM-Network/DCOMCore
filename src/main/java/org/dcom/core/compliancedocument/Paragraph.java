@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.dcom.core.compliancedocument.inline.InlineItem;
 import org.dcom.core.compliancedocument.inline.RASEBox;
+import java.util.List;
 
 /**
 *The programmatic representation and helper functionality for managing Paragraphs in a Compliance Document. A paragraph is made up of Paragraphs and Inserts.
@@ -44,6 +45,15 @@ public class Paragraph extends ComplianceItem{
     paragraphs.remove(s);
     inserts.remove(s);
   }
+
+  public List<Paragraph> getParagraphs() { 
+    return paragraphs;
+  }
+
+  public List<InlineItem> getInlineItems() { 
+    return inlineItems;
+  }
+
 
   public int getNoInlineItems() {
     return inlineItems.size();

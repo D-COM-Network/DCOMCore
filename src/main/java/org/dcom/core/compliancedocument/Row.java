@@ -16,6 +16,7 @@ limitations under the License.
 package org.dcom.core.compliancedocument;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 *The programmatic representation and helper functionality for managing table Rows in a Compliance Document. A row is made up of Cells.
@@ -40,6 +41,10 @@ public class Row extends ComplianceItem{
   public void addCell(Cell c) {
     cells.add(c);
     addSubItem(c);
+  }
+
+   public List<Cell> getCells() { 
+    return cells;
   }
 
   public String toString() {

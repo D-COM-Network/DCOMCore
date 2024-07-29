@@ -16,6 +16,7 @@ limitations under the License.
 package org.dcom.core.compliancedocument;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 *The programmatic representation and helper functionality for managing groups of rows in a Compliance Document.
@@ -42,6 +43,11 @@ public class TableGroup extends ComplianceItem{
     rows.add(r);
     addSubItem(r);
   }
+
+  public List<Row> getRows() { 
+    return rows;
+  }
+
 
   public String toString() {
       StringBuffer str=new StringBuffer();

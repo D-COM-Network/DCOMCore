@@ -16,6 +16,7 @@ limitations under the License.
 package org.dcom.core.compliancedocument;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 *The programmatic representation and helper functionality for managing A Section in a Compliance Document. A section is made up of, sections and paragraphs.
@@ -30,6 +31,15 @@ public class Section extends ComplianceItem {
     super(_parent);
     sections=new ArrayList<Section>();
     paragraphs=new ArrayList<Paragraph>();
+  }
+
+
+  public List<Section> getSections() { 
+    return sections;
+  }
+
+  public List<Paragraph> getParagraphs() { 
+    return paragraphs;
   }
 
 

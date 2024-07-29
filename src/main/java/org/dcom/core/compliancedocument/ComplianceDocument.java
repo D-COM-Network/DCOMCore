@@ -16,6 +16,7 @@ limitations under the License.
 package org.dcom.core.compliancedocument;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 *The programmatic representation and helper functionality for managing a Compliance Document.
@@ -27,6 +28,10 @@ public class ComplianceDocument extends ComplianceItem {
   public ComplianceDocument() {
     super(null);
     sections=new ArrayList<Section>();
+  }
+
+  public List<Section> getSections() { 
+    return sections;
   }
 
   public Section getSection(int i) {
