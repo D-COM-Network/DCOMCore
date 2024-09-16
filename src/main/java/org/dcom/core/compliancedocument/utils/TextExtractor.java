@@ -59,7 +59,7 @@ public class TextExtractor {
 
 		public static List<InlineItem> extractStructure( NodeList children) {
 				List<InlineItem> items = new ArrayList<InlineItem>();
-				for (int i=0; i < children.getLength();i++) items.add(crawlStructure(children.item(i)));
+				for (int i=0; i < children.getLength();i++) items.addAll(crawlStructure(children.item(i)));
 				
 				//join any duplicate text items
 				List<InlineItem> newItems = new ArrayList<InlineItem>();
@@ -82,7 +82,7 @@ public class TextExtractor {
 					Document document = builder.parse(new InputSource(new StringReader(bodyText)));
 					
 					NodeList children = document.getElementsByTagName("body").item(0).getChildNodes();
-					for (int i=0; i < children.getLength();i++) items.add(crawlStructure(children.item(i)));
+					for (int i=0; i < children.getLength();i++) items.addAll(crawlStructure(children.item(i)));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -99,7 +99,8 @@ public class TextExtractor {
 				return newItems;
 		}
 
-		private static InlineItem crawlStructure(Node n) {
+		private static List<InlineItem> crawlStructure(Node n) {
+			List<InlineItem> items = new ArrayList<InlineItem>();
 			if ( n.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element)n;
 				if ((element.getTagName().equalsIgnoreCase("span") || element.getTagName().equalsIgnoreCase("div")) && ( element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype"))) {
@@ -108,23 +109,29 @@ public class TextExtractor {
 							if (type.equals("RequirementSection") || type.equals("SelectionSection") || type.equals("ApplicationSection") || type.equals("ExceptionSection")) {
 								RASEBox box = new RASEBox(type,element.getAttribute("id"));
 								NodeList children = n.getChildNodes();
-								for (int i=0; i < children.getLength();i++) box.addSubItem(crawlStructure(children.item(i)));
-								return box;
+								for (int i=0; i < children.getLength();i++) {
+									List<InlineItem> subItems = crawlStructure(children.item(i));
+									for (InlineItem item: subItems) box.addSubItem(item);
+								}
+								items.add(box);
+								return items;
 							} else if (element.hasAttribute("data-raseType") || element.hasAttribute("data-rasetype")) {
-								return produceTag(element);
+								items.add(produceTag(element));
+								return items;
 							}
 						}
 				} else {
-					RASEBox box = new RASEBox("",element.getAttribute("id"));	
+					
 					NodeList children = n.getChildNodes();
-					for (int i=0; i < children.getLength();i++) box.addSubItem(crawlStructure(children.item(i)));
-					return box;
+					for (int i=0; i < children.getLength();i++) items.addAll(crawlStructure(children.item(i)));
+					return items;
 				}
 			}
 			DOMImplementationLS lsImpl = (DOMImplementationLS)n.getOwnerDocument().getImplementation().getFeature("LS", "3.0");
 			LSSerializer lsSerializer = lsImpl.createLSSerializer();
 			lsSerializer.getDomConfig().setParameter("xml-declaration", false);
-			return new InlineString("",lsSerializer.writeToString(n).trim());
+			items.add(new InlineString("",lsSerializer.writeToString(n).trim()));
+			return items;
 		}
 
 		private static RASETag produceTag(Element element) {
