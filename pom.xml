@@ -65,4 +65,5 @@
       <id>DCOMCore</id>
       <url>https://maven.pkg.github.com/D-COM-Network/*</url>
     </repository>
+  </repositories>
 </project>
