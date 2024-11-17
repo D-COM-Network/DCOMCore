@@ -4,7 +4,7 @@
   <groupId>org.dcom</groupId>
   <artifactId>dcomcore</artifactId>
   <packaging>jar</packaging>
-  <version>0.01</version>
+  <version>0.7.0</version>
   <name>DCOMCore</name>
   <url>http://maven.apache.org</url>
   <properties>
