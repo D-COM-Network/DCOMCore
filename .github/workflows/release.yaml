@@ -19,7 +19,7 @@ jobs:
       - name: Configure Maven
         uses: s4u/maven-settings-action@v2.8.0
         with:
-          servers: '[{"id": "DCOMCORE", "username": "beachtom", "password": "${{ secrets.MAVEN_TOKEN }}"}]'
+          servers: '[{"id": "DCOMCore", "username": "beachtom", "password": "${{ secrets.MAVEN_TOKEN }}"}]'
       - name: Set Version
         run: mvn versions:set -DnewVersion=${{ github.event.release.name }}
       - name: Publish package
