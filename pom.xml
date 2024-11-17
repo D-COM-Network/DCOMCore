@@ -62,18 +62,7 @@
   </dependencies>
   <repositories>
     <repository>
-      <id>gitlab-maven</id>
-      <url>https://git.cardiff.ac.uk/api/v4/groups/717/-/packages/maven</url>
+      <id>DCOMCore</id>
+      <url>https://maven.pkg.github.com/D-COM-Network/*</url>
     </repository>
-  </repositories>
-  <distributionManagement>
-    <repository>
-      <id>gitlab-maven</id>
-      <url>https://git.cardiff.ac.uk/api/v4/projects/4582/packages/maven</url>
-    </repository>
-    <snapshotRepository>
-      <id>gitlab-maven</id>
-      <url>https://git.cardiff.ac.uk/api/v4/projects/4582/packages/maven</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>
