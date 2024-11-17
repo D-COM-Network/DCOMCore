@@ -66,4 +66,11 @@
       <url>https://maven.pkg.github.com/D-COM-Network/*</url>
     </repository>
   </repositories>
+  <distributionManagement>
+    <repository>
+      <id>DCOMCore</id>
+      <name>DCOMCore Common Package</name>
+      <url>https://maven.pkg.github.com/D-COM-Network/DCOMCore</url>
+    </repository>
+  </distributionManagement>
 </project>
