@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
       - run: mkdir dist
       - run: mvn javadoc:javadoc
-      - run: cp -R target/site/apidocs/* dist/
+      - run: cp -R target/reports/apidocs/* dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
